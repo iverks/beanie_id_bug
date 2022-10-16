@@ -1,0 +1,26 @@
+version: "3.8"
+volumes:
+  databad:
+
+
+services:
+  mongodb:
+    image: mongo:5.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=adminpass
+    volumes:
+      - databad:/data/db
+    restart: unless-stopped
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./main.py/:/app/main.py
+    working_dir: /app/
+    depends_on:
+      - mongodb
+    ports:
+      - "8000:8000"
+    command: uvicorn main:app --proxy-headers --host 0.0.0.0 --port 8000

@@ -1,0 +1,7 @@
+wheel==0.37.1
+beanie==1.12.0
+FastAPI>=0.85.1,<0.86.0
+pydantic>=1.9.0,<2.0.0
+pydantic[email]
+python-multipart==0.0.5
+Uvicorn==0.18.2
